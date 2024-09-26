@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux"
 
 const Home = () => {
-  const user = useSelector((state: any) => state.user)
+  const { loggedIn, user } = useSelector((state: any) => state.account)
   return (
     <div>
-      {user && <h1>Welcome, {user.name}</h1>}
+      {loggedIn && <h1>Welcome, {user.name}</h1>}
     </div>
   )
 }

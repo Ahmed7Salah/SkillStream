@@ -1,24 +1,31 @@
 const initialValues = {
-    user: null,
-    loggedIn: false
+    account: {
+        user: null,
+        loggedIn: false
+    },
+    courses: []
 }
 
 
-export const authReducer = (auth: any = initialValues, action: any) => {
+export const authReducer = (state: any = initialValues, action: any) => {
     switch (action.type) {
         case "LOGIN":
             return {
-                ...auth,
-                loggedIn: true,
-                user: action.user
+                ...state,
+                account: {
+                    loggedIn: true,
+                    user: action.user
+                }
             }
         case "LOGOUT":
             return {
-                ...auth,
-                loggedIn: false,
-                user: null
+                ...state,
+                account: {
+                    loggedIn: false,
+                    user: null
+                }
             }
         default:
-            return auth
+            return state
     }
 }
