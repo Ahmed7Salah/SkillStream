@@ -9,9 +9,10 @@ interface Props {
     touched: any,
     handleChange: any,
     handleBlur: any
+    required?: boolean
 }
 
-const PasswordAndConfirmPass = ({ values, errors, touched, handleChange, handleBlur } : Props) => {
+const PasswordAndConfirmPass = ({ values, errors, touched, handleChange, handleBlur, required } : Props) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <>
@@ -23,6 +24,7 @@ const PasswordAndConfirmPass = ({ values, errors, touched, handleChange, handleB
             touched={touched}
             handleChange={handleChange}
             handleBlur={handleBlur}
+            required={required === undefined ? true : required}
         />
         <CustomInput
             showPassword={showPassword}
@@ -32,6 +34,7 @@ const PasswordAndConfirmPass = ({ values, errors, touched, handleChange, handleB
             touched={touched}
             handleChange={handleChange}
             handleBlur={handleBlur}
+            required={required === undefined ? true : required}
         />
     </>
   )

@@ -1,45 +1,20 @@
-import { Button, Text } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { signUpFormSchema } from '../../schemas/AccountFormValidationSchema';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
-import { login } from '../../redux-store/actions';
 import SignInUpWith from '../../components/AccountForm/SmallParts/SignInUpWith';
 import FormOutlines from '../../components/AccountForm/FormOutlines';
 import OrDivider from '../../components/AccountForm/SmallParts/OrDivider';
 import CustomInput from '../../components/AccountForm/SmallParts/CustomInput';
 import SignInUpSwitcher from '../../components/AccountForm/SmallParts/SignInUpSwitcher';
 import PasswordAndConfirmPass from '../../components/AccountForm/SmallParts/PasswordAndConfirmPass';
+import { useSignUp } from '../../hooks/Auth';
+
 
 const SignUp = () => {
     const [signUpError, setSignUpError] = useState("");
-    // updating store
-    const dispatch = useDispatch();
-
-    const signInUser = (user: any) => {
-        dispatch(login(user))
-    }
-
-    const navigate = useNavigate();
-
     
-    const onSubmit = async ({ email, password, confirmPassword, name }: { email: string, password: string, confirmPassword: string, name: string }) => {
-        const res = await fetch("http://localhost:5000/user/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password, confirmPassword, name }),
-        }).then((res) => res.json())
-            .catch((err) => console.log(err))
-        if (res.success) {
-            signInUser(res.user)
-            navigate('/', { replace: true })
-        } else {
-            setSignUpError(res.message)
-        }
-    }
+    const onSubmit = useSignUp(setSignUpError);
 
 
     const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({

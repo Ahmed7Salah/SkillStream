@@ -1,14 +1,20 @@
 
-export const login = (user: any) => {
+export const loginAction = (user: any) => {
     return {
         type: "LOGIN",
         user
     }
 }
 
-export const logout = (user: any) => {
+export const logoutAction = () => {
     return {
-        type: "LOGOUT",
+        type: "LOGOUT"
+    }
+}
+
+export const fetchAction = (user: any) => {
+    return {
+        type: "FETCH",
         user
     }
 }

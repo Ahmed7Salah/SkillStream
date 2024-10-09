@@ -5,30 +5,18 @@ import { emailSchema } from '../../schemas/AccountFormValidationSchema'
 import { Button } from '@chakra-ui/react'
 import { useState } from 'react'
 import MessageAlert from '../../components/AccountForm/SmallParts/MessageAlert'
+import { useForgotPassword } from '../../hooks/Auth'
 
 const ForgotPassword = () => {
 
     const [apiError, setApiError] = useState("")
-    const [success, setSuccess] = useState(false)
-    const [successMessage, setSuccessMessage] = useState("")
-    const onSubmit = async ({ email }: { email: string }) => {
-      const res = await fetch("http://localhost:5000/user/forgot-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-        credentials: 'include'
-      }).then((res) => res.json())
-      .catch((err) => console.log(err))
-      if (res.success) {
-        setSuccess(true)
-        setSuccessMessage(res.message)
-      } else {
-        setApiError(res.message)
-      }
-    }
+    const [response, setResponse] = useState<{ success: boolean; message: string }>({
+      success: false,
+      message: "",
+    })
 
+    // order of arguments matter!!
+    const onSubmit = useForgotPassword(setResponse, setApiError)
     const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
         initialValues: {
           email: "",
@@ -43,7 +31,7 @@ const ForgotPassword = () => {
         headerContent="Enter your email address and we will send you a link to reset your password.">
             <form autoComplete='off' onSubmit={handleSubmit} style={{ width: '70%', display: 'flex', flexDirection: 'column',
                 alignItems: 'center', gap: '1rem'}}>
-                {success && <MessageAlert success={success} message={successMessage} />}
+                {response.success && <MessageAlert success={response.success} message={response.message} />}
                 <CustomInput
                     type="email"
                     values={values}

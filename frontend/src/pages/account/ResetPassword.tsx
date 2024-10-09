@@ -6,6 +6,7 @@ import PasswordAndConfirmPass from "../../components/AccountForm/SmallParts/Pass
 import { useParams } from "react-router-dom"
 import MessageAlert from "../../components/AccountForm/SmallParts/MessageAlert"
 import { useState } from "react"
+import { useResetPassword } from "../../hooks/Auth"
 
 
 const ResetPassword = () => {
@@ -17,22 +18,7 @@ const ResetPassword = () => {
   })
 
   const { userId, token } = useParams();
-    const onSubmit = async (values: any) => {
-        const res = await fetch(`http://localhost:5000/user/reset-password/${userId}/${token}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            password: values.password,
-            confirmPassword: values.confirmPassword,
-          }),
-        })
-          .then((res) => res.json())
-          .catch((err) => console.log(err))
-
-        setResponse({message: res.message, success: res.success, fetched: true})
-      }
+    const onSubmit = useResetPassword(setResponse, userId, token)
 
     const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
         initialValues: {

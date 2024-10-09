@@ -39,3 +39,14 @@ export const passwordSchema = Yup.object().shape({
         .oneOf([Yup.ref("password"), ""], "Passwords must match")
         .required("Confirm password is required"),
 })
+
+export const updateProfileSchema = Yup.object().shape({
+    name: Yup.string(),
+    email: Yup.string()
+        .matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, "Invalid email"),
+    password: Yup.string()
+        .min(8, "Password must be at least 8 characters")
+        .matches(/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]+$/, "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"),
+    confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), ""], "Passwords must match")
+})

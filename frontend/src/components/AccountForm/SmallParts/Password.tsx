@@ -13,10 +13,11 @@ interface Props {
   touched: any,
   handleChange: any,
   handleBlur: any
+  required?: boolean
 }
 
 
-const Password = ({ apiError, setApiError, showPassword, setShowPassword, values, errors, touched, handleChange, handleBlur } : Props) => {
+const Password = ({ apiError, setApiError, showPassword, setShowPassword, values, errors, touched, handleChange, handleBlur, required } : Props) => {
 
   return (
           <CustomInput
@@ -30,6 +31,7 @@ const Password = ({ apiError, setApiError, showPassword, setShowPassword, values
               handleBlur={handleBlur}
               setApiError={setApiError? setApiError : undefined}
               apiError={apiError ? apiError : undefined}
+              required={required === undefined ? true : required}
             >
               <Button
                   right="0"

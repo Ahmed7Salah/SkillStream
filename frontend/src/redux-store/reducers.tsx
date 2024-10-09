@@ -25,6 +25,14 @@ export const authReducer = (state: any = initialValues, action: any) => {
                     user: null
                 }
             }
+        case "FETCH":
+            return {
+                ...state,
+                account: {
+                    ...state.account,
+                    user: action.user
+                }
+            }
         default:
             return state
     }

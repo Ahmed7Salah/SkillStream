@@ -12,10 +12,10 @@ interface Props {
 const SignInUpSwitcher = ({ selected, setSignInError, setSignUpError }: Props) => {
   return (
     <HStack position="absolute" top="0" w="100%" gap="0">
-        <Button as={Link} to="/account/signup" w="100%" size="lg" onClick={setSignInError ? () => setSignInError("") : undefined } colorScheme={selected === "Sign up" ? "teal" : "gray"} borderRadius="none" outline="none">
+        <Button as={Link} to="/account/sign-up" w="100%" size="lg" onClick={setSignInError ? () => setSignInError("") : undefined } colorScheme={selected === "Sign up" ? "teal" : "gray"} borderRadius="none" outline="none">
             Sign up
         </Button>
-        <Button as={Link} to="/account/signin" w="100%" size="lg" onClick={setSignUpError ? () => setSignUpError("") : undefined } colorScheme={selected === "Sign in" ? "teal" : "gray"} borderRadius="none" outline="none">
+        <Button as={Link} to="/account/sign-in" w="100%" size="lg" onClick={setSignUpError ? () => setSignUpError("") : undefined } colorScheme={selected === "Sign in" ? "teal" : "gray"} borderRadius="none" outline="none">
             Sign in
         </Button>
     </HStack>

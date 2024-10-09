@@ -12,8 +12,9 @@ interface Props {
     touched: any
     handleChange: any
     handleBlur: any
+    required?: boolean
 }
-const EmailInput = ({ apiError, setApiError, showPassword, children, type, values, errors, touched, handleChange, handleBlur } : Props) => {
+const CustomInput = ({ apiError, setApiError, showPassword, children, type, values, errors, touched, handleChange, handleBlur, required } : Props) => {
     
   return (
         <FormControl isInvalid={(!!errors[type] && touched[type]) || !!apiError}>
@@ -28,7 +29,7 @@ const EmailInput = ({ apiError, setApiError, showPassword, children, type, value
                 size="lg"
                 type={( type === "password" || type === "confirmPassword" )? showPassword ? "text" : "password" : type}
                 name={type}
-                required
+                required={required === undefined ? true : required}
                 borderColor="gray.400"
             />
             {children}
@@ -46,5 +47,5 @@ function toTitleCase(str: string) {
         .join(' ');
 }
 
-export default EmailInput
+export default CustomInput
 

@@ -7,6 +7,7 @@ import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter } from "react-router-dom"
 import { Provider } from "react-redux"
 import { store } from "./redux-store/store"
+import { SnackbarProvider } from "notistack"
 
 
 const container = document.getElementById("root")
@@ -18,7 +19,9 @@ root.render(
     <BrowserRouter>
       <ColorModeScript />
         <Provider store={store}>
-          <App />
+          <SnackbarProvider>
+            <App />
+          </SnackbarProvider>
         </Provider>
     </BrowserRouter>
   </React.StrictMode>,
