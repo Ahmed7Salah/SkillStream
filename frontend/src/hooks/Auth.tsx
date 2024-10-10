@@ -12,6 +12,10 @@ export function useLogin(setState: React.Dispatch<React.SetStateAction<string>>)
     if (success) {
       dispatch(loginAction(user))
       navigate('/', { replace: true })
+      // saving login state to local storage
+      // TODO: make it secure
+      // store refersh token
+      localStorage.setItem("state", JSON.stringify({loggedIn: true, token: getCookie("token")}))
     } else {
       setState(message)
     }
@@ -27,6 +31,10 @@ export function useSignUp(setState: React.Dispatch<React.SetStateAction<string>>
     if (success) {
       dispatch(loginAction(user))
       navigate('/', { replace: true })
+      // saving login state to local storage
+      // TODO: make it secure
+      // store refersh token
+      localStorage.setItem("state", JSON.stringify({loggedIn: true, token: getCookie("token")}))
     } else {
       setState(message)
     }
@@ -87,5 +95,17 @@ async function userFetch(route: string,
     body: JSON.stringify({ email, password, confirmPassword, name }),
     credentials: 'include'
   }).then((res) => res.json())
-  .catch((err) => console.log(err))
+  .catch((err) => err)
+}
+
+
+function getCookie(name: string) {
+  const cookies = document.cookie.split('; ');
+
+  for (let cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.split('=');
+    if (cookieName === name) {
+      return decodeURIComponent(cookieValue); // Return the decoded value of the cookie
+    }
+  }
 }

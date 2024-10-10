@@ -1,26 +1,32 @@
 import { Avatar, Button, ButtonGroup, Flex, Grid, GridItem, Heading, Spinner, Text } from '@chakra-ui/react'
 import { closeSnackbar, useSnackbar } from 'notistack'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFetchUser, useUpdateProfile } from '../../hooks/Profile'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const ProfileLayout = ({ children }: { children?: JSX.Element[] | JSX.Element }) => {
     const ref = useRef<HTMLInputElement>(null)
     const [isOpen, setIsOpen] = useState(false)
     const [isUploading, setIsUploading] = useState(false)
     const [image, setImage] = useState<string | undefined>()
-    const {name, avatar} = useSelector((state: any) => state.account.user)
+    const user = useSelector((state: any) => state.account.user)
     const { enqueueSnackbar } = useSnackbar();
     const updateProfile = useUpdateProfile();
     const fetchUser = useFetchUser()
 
+    const {name, avatar, followers} = useMemo(() => ({
+        name: user?.name || "",
+        avatar: user?.avatar || {},
+        followers: user?.followers || []
+    }), [user])
 
     useEffect(() => {
         fetchUser()
     }, [])
 
     useEffect(() => {
-        setImage(avatar.url)
+        setImage(avatar?.url)
     }, [avatar])
 
 
@@ -77,7 +83,7 @@ const ProfileLayout = ({ children }: { children?: JSX.Element[] | JSX.Element })
             </Text>
         </GridItem>
             <GridItem as={Flex} boxShadow={'lg'} border={'1px'} borderColor={'gray.300'} borderRadius={'lg'} p={10}
-            direction={'column'} justifyContent={'center'} alignItems={'center'}>
+            direction={'column'} justifyContent={'center'} alignItems={'center'} maxH={'700px'}>
 
                 <Avatar as={Button} src={image} onClick={() => ref.current?.click()} _hover={{bg: 'teal.600', color: 'white'}}
                 name={name} width={"200px"} height="200px" p={0} border={'2px'} style={{borderColor: 'teal'}} />
@@ -91,6 +97,8 @@ const ProfileLayout = ({ children }: { children?: JSX.Element[] | JSX.Element })
                 </ButtonGroup>
 
                 <Spinner size={'xl'} visibility={isUploading ? 'visible' : 'hidden'} />
+
+                <Button as={Link} to={'/profile/followers'} variant='link' color='teal' mt={5}>{`${followers?.length} Followers`}</Button>
 
             </GridItem>
             <Grid as={GridItem} boxShadow={'lg'} border={'1px'} borderColor={'gray.300'} borderRadius={'lg'}

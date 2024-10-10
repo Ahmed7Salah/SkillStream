@@ -1,5 +1,5 @@
 import { compose, legacy_createStore as createStore } from 'redux';
-import { authReducer } from './reducers';
+import { rootReducer } from './reducers';
 
 declare global {
     interface Window {
@@ -8,4 +8,4 @@ declare global {
   }
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const store = createStore(authReducer, composeEnhancers())
+export const store = createStore(rootReducer, composeEnhancers())

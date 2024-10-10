@@ -3,11 +3,17 @@ const initialValues = {
         user: null,
         loggedIn: false
     },
-    courses: []
+    courses: {
+        coursesList: [],
+        page: 1,
+        pages: 1,
+        count: 0,
+        categories: []
+    }
 }
 
-
-export const authReducer = (state: any = initialValues, action: any) => {
+// TODO: FETCH_COURSE causes FETCH_COURSES fix
+export const rootReducer = (state: any = initialValues, action: any) => {
     switch (action.type) {
         case "LOGIN":
             return {
@@ -25,13 +31,23 @@ export const authReducer = (state: any = initialValues, action: any) => {
                     user: null
                 }
             }
-        case "FETCH":
+        case "USER_FETCH":
             return {
                 ...state,
                 account: {
                     ...state.account,
                     user: action.user
                 }
+            }
+        case "COURSES_FETCH":
+            return {
+                ...state,
+                courses: action.courses
+            }
+        case "COURSE_FETCH":
+            return {
+                ...state,
+                courses: {...state.courses, coursesList: [...state.courses.coursesList, action.course]}
             }
         default:
             return state

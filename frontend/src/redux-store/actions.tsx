@@ -14,7 +14,23 @@ export const logoutAction = () => {
 
 export const fetchAction = (user: any) => {
     return {
-        type: "FETCH",
+        type: "USER_FETCH",
         user
+    }
+}
+
+
+export const fetchCoursesAction = (courses: any) => {
+    return {
+        type: "COURSES_FETCH",
+        courses
+    }
+}
+
+
+export const fetchCourseAction = (course: any) => {
+    return {
+        type: "COURSE_FETCH",
+        course
     }
 }

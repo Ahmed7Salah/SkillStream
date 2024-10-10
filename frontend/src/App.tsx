@@ -16,24 +16,50 @@ import Settings from "./pages/profile/Settings"
 import LinkedAccounts from "./pages/profile/LinkedAccounts"
 import MyCourses from "./pages/profile/MyCourses"
 import Following from "./pages/profile/Following"
+import Followers from "./pages/profile/Followers"
+import { useFetchCourses } from "./hooks/Courses"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { loginAction } from "./redux-store/actions"
+import { useFetchUser } from "./hooks/Profile"
+import CourseContent from "./pages/CourseContent"
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <NavBar />
-    <Routes>
-      <Route index element={<Home />} />
-      <Route path="/account/sign-in" element={<SignIn />} />
-      <Route path="/account/sign-up" element={<SignUp />} />
-      <Route path="/account/forgot-password" element={<ForgotPassword />} />
-      <Route path="/account/reset-password/:userId/:token" element={<ResetPassword />} />
+export const App = () => {
+  const fetchCourses = useFetchCourses();
+  const dispatch = useDispatch()
+  const fetchUser = useFetchUser();
 
-      <Route path="profile" element={<Profile />} />
-      <Route path="profile/settings" element={<Settings />} />
-      <Route path="profile/my-courses" element={<MyCourses />} />
-      <Route path="profile/following" element={<Following />} />
-      <Route path="profile/linked-accounts" element={<LinkedAccounts />} />
-      <Route path="/courses" element={<Courses />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  </ChakraProvider>
-)
+  useEffect(() => {
+    // Fetch courses on mount
+    fetchCourses();
+    // check if user logged in
+    if (JSON.parse(localStorage.getItem("state") || "{}")?.loggedIn) {
+      dispatch(loginAction({}))
+      fetchUser()
+    }
+  }, [])
+  return (
+    <ChakraProvider theme={theme}>
+      <NavBar />
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="/account/sign-in" element={<SignIn />} />
+        <Route path="/account/sign-up" element={<SignUp />} />
+        <Route path="/account/forgot-password" element={<ForgotPassword />} />
+        <Route path="/account/reset-password/:userId/:token" element={<ResetPassword />} />
+
+        <Route path="profile" element={<Profile />} />
+        <Route path="profile/settings" element={<Settings />} />
+        <Route path="profile/my-courses" element={<MyCourses />} />
+        <Route path="profile/following" element={<Following />} />
+        <Route path="profile/followers" element={<Followers />} />
+        <Route path="profile/linked-accounts" element={<LinkedAccounts />} />
+
+        <Route path="/courses" element={<Courses />} />
+
+        <Route path="/learn/:courseId" element={<CourseContent />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </ChakraProvider>
+  )
+}

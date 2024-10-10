@@ -18,7 +18,6 @@ const NavBar = () => {
     const isInAccountRoute = location.pathname.includes("/account")
     const [signOutMessage, setSignOutMessage] = useState<string>('')
     const logout = useLogout(setSignOutMessage)
-
     
     
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -59,10 +58,10 @@ const NavBar = () => {
                     <Menu>
                     <MenuButton
                       as={Avatar}
-                      src={user.avatar.url}
-                      p={user.avatar.url ? 0 : 5}
+                      src={user?.avatar?.url}
+                      p={user?.avatar?.url ? 0 : 5}
                       _hover={{bg: "teal.700"}}
-                      name={user.name}
+                      name={user?.name}
                       cursor='pointer'
                       transition='all 0.2s'
                       borderRadius='full'
