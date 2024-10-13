@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <Box bg="gray.50" color="teal">
     {!!loggedIn && <>
-      <Flex backgroundImage={require('../assets/welcome.webp')} bgAttachment={"fixed"} bgRepeat={'no-repeat'} bgSize="cover"
+      <Flex backgroundImage={'../assets/welcome.webp'} bgAttachment={"fixed"} bgRepeat={'no-repeat'} bgSize="cover"
     backgroundPosition="center" justifyContent="center" alignItems="center" height="40vh">
       <Heading color="white" size="xl">Welcome, {user.name}</Heading>
       </Flex>
