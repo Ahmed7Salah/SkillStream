@@ -11,7 +11,7 @@ const SearchBar = () => {
 
   return (
     <InputGroup size="md">
-        <Input type="text" ref={ref} focusBorderColor="white" _focus={{boxShadow: 'none'}} placeholder="Search..." border="1px solid" borderRadius={'full'} />
+        <Input type="text" ref={ref} focusBorderColor="white" _focus={{boxShadow: 'none'}} _placeholder={{ color: 'white' }} placeholder="Search..." border="1px solid" borderRadius={'full'} />
         <InputRightAddon
           as={Button}
           onClick={() => search({ name: ref?.current?.value })}
