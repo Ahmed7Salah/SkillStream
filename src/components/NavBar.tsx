@@ -1,5 +1,5 @@
 import { 
-  AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogOverlay, Avatar, AvatarBadge, Button, Heading,
+  AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogOverlay, Avatar, AvatarBadge, Button, Flex, Heading,
   HStack, Menu, MenuButton, MenuItem, MenuList, useDisclosure
 } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
@@ -81,12 +81,12 @@ const NavBar = () => {
                     </MenuList>
                   </Menu>
                     :
-                    <>
+                    <Flex w="fit-content" gap={3}>
                         <Button as={Link} to="/account/sign-in" variant={"outline"} color={'white'} 
                         colorScheme='gray' _hover={{ bg: 'teal.700', borderColor: 'teal.700'}}>Sign in</Button>
                         <Button as={Link} to="/account/sign-up" color={'teal'} colorScheme='gray'
                         _hover={{ bg: 'teal.700', color: 'white'}}>Join for free</Button>
-                    </>}
+                    </Flex>}
                 </>}
         </HStack>
     </HStack>
