@@ -2,8 +2,11 @@ import ProfileLayout from './ProfileLayout'
 import ProfileHeader from './ProfileHeader'
 import { GridItem, Table, TableCaption, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react'
 import Person from './Person'
+import { useSelector } from 'react-redux'
 
 const UsersOverlay = ({ users, title }: { users: any, title: string }) => {
+
+  const following = useSelector((state: any) => state?.account?.user?.following)
 
   return (
     <ProfileLayout>
@@ -20,12 +23,14 @@ const UsersOverlay = ({ users, title }: { users: any, title: string }) => {
               <Tr>
                 <Th>Profile</Th>
                 <Th>Name</Th>
-                <Th isNumeric>Followers</Th>
+                <Th>Followers</Th>
+                <Th isNumeric>Follow User</Th>
               </Tr>
             </Thead>}
             <Tbody>
               {users?.map((f: any) => (
-                <Person key={f._id} name={f.name} followerCount={f.followers.length} avatar={f.avatar.url} id={f._id} />
+                <Person key={f?._id} name={f?.name} followerCount={f?.followers?.length} avatar={f?.avatar?.url} id={f?._id}
+                  isFollowing={following.find((u: any) => u?._id === f?._id)} />
               ))}
           </Tbody>
         </Table>

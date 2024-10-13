@@ -9,6 +9,12 @@ const initialValues = {
         pages: 1,
         count: 0,
         categories: []
+    },
+    users: {
+        usersList: [],
+        page: 1,
+        pages: 1,
+        count: 0
     }
 }
 
@@ -47,7 +53,20 @@ export const rootReducer = (state: any = initialValues, action: any) => {
         case "COURSE_FETCH":
             return {
                 ...state,
-                courses: {...state.courses, coursesList: [...state.courses.coursesList, action.course]}
+                courses: {...state.courses, coursesList:
+                    state.courses.coursesList.map((course: any) => course._id === action.course._id ? action.course : course)
+                }
+            }
+            // TODO fetch pages...
+        case "SEARCH_USERS":
+            return {
+                ...state,
+                users: {...state.users, usersList: action.usersList}
+            }
+        case "CLEAR_USERS":
+            return {
+                ...state,
+                users: {...state.users, usersList: []}
             }
         default:
             return state

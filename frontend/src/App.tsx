@@ -17,25 +17,26 @@ import LinkedAccounts from "./pages/profile/LinkedAccounts"
 import MyCourses from "./pages/profile/MyCourses"
 import Following from "./pages/profile/Following"
 import Followers from "./pages/profile/Followers"
-import { useFetchCourses } from "./hooks/Courses"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { loginAction } from "./redux-store/actions"
 import { useFetchUser } from "./hooks/Profile"
 import CourseContent from "./pages/CourseContent"
+import Footer from "./components/Footer"
+import { useFetchCourses } from "./hooks/Courses"
+import UsersSearchResults from "./pages/UsersSearchResults"
 
 export const App = () => {
-  const fetchCourses = useFetchCourses();
   const dispatch = useDispatch()
   const fetchUser = useFetchUser();
+  const fetchCourses = useFetchCourses()
 
   useEffect(() => {
-    // Fetch courses on mount
-    fetchCourses();
     // check if user logged in
     if (JSON.parse(localStorage.getItem("state") || "{}")?.loggedIn) {
       dispatch(loginAction({}))
       fetchUser()
+      fetchCourses({page: 1})
     }
   }, [])
   return (
@@ -58,8 +59,12 @@ export const App = () => {
         <Route path="/courses" element={<Courses />} />
 
         <Route path="/learn/:courseId" element={<CourseContent />} />
+
+        <Route path="/users/results" element={<UsersSearchResults />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </ChakraProvider>
   )
 }

@@ -34,3 +34,18 @@ export const fetchCourseAction = (course: any) => {
         course
     }
 }
+
+
+export const SearchUsersAction = (usersList: any) => {
+    return {
+        type: "SEARCH_USERS",
+        usersList
+    }
+}
+
+
+export const ClearUsersAction = () => {
+    return {
+        type: "CLEAR_USERS"
+    }
+}

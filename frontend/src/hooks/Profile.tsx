@@ -2,6 +2,8 @@ import { useSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
 import { fetchAction } from "../redux-store/actions";
 import { useNavigate } from "react-router-dom";
+import { useFetchCourses } from "./Courses";
+import { useFindUser } from "./User";
 
 
 
@@ -55,35 +57,39 @@ export function useUpdateProfile() {
 
 
 export function useLikeCourse() {
-    // const { enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const fetchUser = useFetchUser()
-    return async (course: string) => {
+    const fetchCourse = useFetchCourses()
+    return async (course: string | undefined) => {
         const res = await courseFetch("like-course", { course })
-        // if (!res.success) enqueueSnackbar("Something went wrong", { variant: 'error' })
+        if (!res.success) enqueueSnackbar(res.message || "Something went wrong", { variant: 'error' })
 
         fetchUser()
+        fetchCourse({id: course})
     }
 }
 
 
 export function useUnlikeCourse() {
-    // const { enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const fetchUser = useFetchUser()
-    return async (course: string) => {
+    const fetchCourse = useFetchCourses()
+    return async (course: string | undefined) => {
         const res = await courseFetch("unlike-course", { course })
-        // if (!res.success) enqueueSnackbar("Something went wrong", { variant: 'error' })
+        if (!res.success) enqueueSnackbar(res.message || "Something went wrong", { variant: 'error' })
 
         fetchUser()
+        fetchCourse({id: course})
     }
 }
 
 
 export function useAddCourse() {
-    // const { enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const fetchUser = useFetchUser()
     return async (course: string) => {
         const res = await courseFetch("add-course", { course })
-        // if (!res.success) enqueueSnackbar("Something went wrong", { variant: 'error' })
+        if (!res.success) enqueueSnackbar(res.message || "Something went wrong", { variant: 'error' })
 
         fetchUser()
     }
@@ -91,24 +97,51 @@ export function useAddCourse() {
 
 
 export function useRemoveCourse() {
-    // const { enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const fetchUser = useFetchUser()
     return async (course: string) => {
         const res = await courseFetch("remove-course", { course })
-        // if (!res.success) enqueueSnackbar("Something went wrong", { variant: 'error' })
+        if (!res.success) enqueueSnackbar(res.message || "Something went wrong", { variant: 'error' })
 
         fetchUser()
     }
 }
 
 
-const courseFetch = async (route: string, { course }: { course: string }) => {
+export function useFollowUser() {
+    const { enqueueSnackbar } = useSnackbar();
+    const findUser = useFindUser()
+    const fetchUser = useFetchUser()
+    return async (userId: string | undefined, name: string) => {
+        const res = await courseFetch("follow-user", { userId })
+        if (!res.success) enqueueSnackbar(res.message || "Something went wrong", { variant: 'error' })
+        fetchUser()
+        findUser({ name })
+    }
+}
+
+
+export function useUnfollowUser() {
+    const { enqueueSnackbar } = useSnackbar();
+    const findUser = useFindUser()
+    const fetchUser = useFetchUser()
+    return async (userId: string | undefined, name: string) => {
+        const res = await courseFetch("unfollow-user", { userId })
+        if (!res.success) enqueueSnackbar(res.message || "Something went wrong", { variant: 'error' })
+        fetchUser()
+        findUser({ name })
+    }
+}
+
+
+// change name to fit uses
+const courseFetch = async (route: string, { course, userId }: { course?: string | undefined, userId?: string | undefined }) => {
   return await fetch(`http://localhost:5000/profile/${route}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json",
       },
-      body: JSON.stringify({ course }),
+      body: JSON.stringify({ course, userId }),
       credentials: 'include'
   })
   .then((res) => res.json())

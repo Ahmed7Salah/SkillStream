@@ -1,5 +1,5 @@
 import ProfileSection from '../../components/Profile/ProfileSection'
-import { GiThreeFriends } from 'react-icons/gi'
+import { GiShadowFollower, GiThreeFriends } from 'react-icons/gi'
 import { ImBooks } from "react-icons/im";
 import { HiLink } from "react-icons/hi";
 import { IoMdSettings } from 'react-icons/io';
@@ -29,11 +29,17 @@ const Profile = () => {
             icon={<IoMdSettings size={50} />}
             route={'settings'}
         />
-        <ProfileSection
+        {/* <ProfileSection
             header={"Linked Accounts"}
             icon={<HiLink size={50} />}
             route={'linked-accounts'}
-        />
+        /> */}
+        <ProfileSection
+            header={"Followers"}
+            icon={<GiShadowFollower size={50} />}
+            route={'followers'}
+        ></ProfileSection>
+
     </ProfileLayout>
   )
 }

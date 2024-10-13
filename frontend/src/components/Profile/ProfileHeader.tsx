@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 const ProfileHeader = ({ title } : { title: string }) => {
   return (
     <>
+    {/* TODO: when I go through profile menu to following and go back it goes to profile then goes to home for some reason */}
     <Button as={Link} to={'/profile'} size={'md'} position={'absolute'} colorScheme='teal' variant='outline' borderColor='teal' 
     _hover={{bg: 'teal.600', color: 'white'}} mt={'-7'} ml={'-7'} onClick={() => window.history.back()}><IoMdArrowRoundBack size={25} /></Button>
     <GridItem colSpan={2}>

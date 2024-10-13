@@ -4,7 +4,9 @@ import { fetchCourseAction, fetchCoursesAction } from "../redux-store/actions"
 
 export const useFetchCourses = () => {
     const dispatch = useDispatch()
-    return async (id?: string) => await fetch(`http://localhost:5000/api/course/${id ? id : ""}`, {
+    return async ({ id, page, category }: { id?: string, page?: number, category?: string }) => await fetch(
+        `http://localhost:5000/api/course/${id ? id : `?pageNumber=${page ? page : 1}&category=${category ? category : ""}`}`
+        , {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -14,7 +16,7 @@ export const useFetchCourses = () => {
         .then((data) => {
             delete data.message
             delete data.success
-            if (id) dispatch(fetchCourseAction(data))
+            if (id) dispatch(fetchCourseAction(data.course))
             else dispatch(fetchCoursesAction(data))
         })
         .catch((err) => console.log(err))

@@ -41,7 +41,7 @@ const NavBar = () => {
   return (
     <>
     <HStack justifyContent={!isInAccountRoute ? 'space-between' : 'center'} py={3} px={8} bg='teal' color='white'
-        boxShadow='lg' borderBottom={'1px'} borderColor={'gray.300'} alignItems='center' h={'10vh'}>
+        boxShadow='lg' alignItems='center' h={'10vh'} position='sticky' top={0} zIndex={10}>
         <HStack spacing={14}>
             <Heading as={Link} to="/" size='lg' bg="white" color="teal" p="1.5" borderRadius="md">SkillStream</Heading>
             {!isInAccountRoute &&
@@ -75,7 +75,7 @@ const NavBar = () => {
                     <MenuList color="black">
                       <MenuItem as={Link} to={"/profile"} icon={<CgProfile size={20} />}>Profile</MenuItem>
                       <MenuItem as={Link} to={"/profile/following"} icon={<GiThreeFriends size={20} />}>Following</MenuItem>
-                      <MenuItem >Status</MenuItem>
+                      {/* <MenuItem >Status</MenuItem> */}
                       <MenuItem as={Link} to={"/profile/settings"} icon={<IoMdSettings size={20} />} >Settings</MenuItem>
                       <MenuItem onClick={() => {logout(); onOpen()}} icon={<FiLogOut size={20} />}>Log out</MenuItem>
                     </MenuList>
@@ -96,7 +96,7 @@ const NavBar = () => {
     onClose={onClose}
     isOpen={isOpen}
     isCentered
-  >
+    >
     <AlertDialogOverlay />
 
     <AlertDialogContent>

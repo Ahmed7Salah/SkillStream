@@ -35,10 +35,10 @@ const SignIn = () => {
     <FormOutlines
         header="Sign in to your account"
         headerContent="Unlock your potential with courses designed for the future. Thrive in your career with flexible education."
-        headerChildren={<SignInUpWith type="Sign In" />}
+        // headerChildren={<SignInUpWith type="Sign In" />}
         topSwitcher={<SignInUpSwitcher selected="Sign in" setSignInError={setSignInError} />}
         >
-            <OrDivider />
+            {/* <OrDivider /> */}
             <form autoComplete='off' onSubmit={handleSubmit} style={{ width: '70%', display: 'flex', flexDirection: 'column',
                 alignItems: 'center', gap: '1rem'}}>
                 <CustomInput

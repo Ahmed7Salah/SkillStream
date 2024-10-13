@@ -98,7 +98,7 @@ const ProfileLayout = ({ children }: { children?: JSX.Element[] | JSX.Element })
 
                 <Spinner size={'xl'} visibility={isUploading ? 'visible' : 'hidden'} />
 
-                <Button as={Link} to={'/profile/followers'} variant='link' color='teal' mt={5}>{`${followers?.length} Followers`}</Button>
+                {/* <Button as={Link} to={'/profile/followers'} variant='link' color='teal' mt={5}>{`${followers?.length} Followers`}</Button> */}
 
             </GridItem>
             <Grid as={GridItem} boxShadow={'lg'} border={'1px'} borderColor={'gray.300'} borderRadius={'lg'}
