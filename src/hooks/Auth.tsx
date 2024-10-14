@@ -87,7 +87,7 @@ async function userFetch(route: string,
     confirmPassword?: string,
     name?: string
   } = {}) : Promise<{message: string, success: boolean, user?: {name: string, email: string}}> {
-  return await fetch(`http://localhost:5000/user/${route}`, {
+  return await fetch(`https://skillstreambackend-b2x9s1e2f-ahmed-salahs-projects-534b2558.vercel.app//user/${route}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

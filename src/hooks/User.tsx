@@ -8,7 +8,7 @@ export function useFindUser() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     return async ({ name }: {name: string | undefined}) => {
-        const res = await fetch(`http://localhost:5000/users/find/${name}`, {
+        const res = await fetch(`https://skillstreambackend-b2x9s1e2f-ahmed-salahs-projects-534b2558.vercel.app/users/find/${name}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

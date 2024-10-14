@@ -5,7 +5,7 @@ import { fetchCourseAction, fetchCoursesAction } from "../redux-store/actions"
 export const useFetchCourses = () => {
     const dispatch = useDispatch()
     return async ({ id, page, category }: { id?: string, page?: number, category?: string }) => await fetch(
-        `http://localhost:5000/api/course/${id ? id : `?pageNumber=${page ? page : 1}&category=${category ? category : ""}`}`
+        `https://skillstreambackend-b2x9s1e2f-ahmed-salahs-projects-534b2558.vercel.app/api/course/${id ? id : `?pageNumber=${page ? page : 1}&category=${category ? category : ""}`}`
         , {
             method: "GET",
             headers: {

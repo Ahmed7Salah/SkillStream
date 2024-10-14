@@ -12,7 +12,7 @@ export function useFetchUser() {
     const naviagate = useNavigate()
     const { enqueueSnackbar } = useSnackbar();
     return async () => {
-      const res = await fetch(`http://localhost:5000/profile/`, {
+      const res = await fetch(`https://skillstreambackend-b2x9s1e2f-ahmed-salahs-projects-534b2558.vercel.app/profile/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export function useUpdateProfile() {
     const { enqueueSnackbar } = useSnackbar();
     const fetchUser = useFetchUser()
     return async ({ avatar, name, email, password, confirmPassword, cb, onSuccess }: { avatar?: string, name?: string, email?: string, password?: string, confirmPassword?: string, cb?: () => void, onSuccess?: () => void }) => {
-        const res = await fetch(`http://localhost:5000/profile`, {
+        const res = await fetch(`https://skillstreambackend-b2x9s1e2f-ahmed-salahs-projects-534b2558.vercel.app/profile`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -136,7 +136,7 @@ export function useUnfollowUser() {
 
 // change name to fit uses
 const courseFetch = async (route: string, { course, userId }: { course?: string | undefined, userId?: string | undefined }) => {
-  return await fetch(`http://localhost:5000/profile/${route}`, {
+  return await fetch(`https://skillstreambackend-b2x9s1e2f-ahmed-salahs-projects-534b2558.vercel.app/${route}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json",
