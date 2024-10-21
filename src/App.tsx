@@ -33,10 +33,10 @@ export const App = () => {
 
   useEffect(() => {
     // check if user logged in
+    fetchCourses({page: 1})
     if (JSON.parse(localStorage.getItem("state") || "{}")?.loggedIn) {
       dispatch(loginAction({}))
-      fetchUser()
-      fetchCourses({page: 1})
+      // fetchUser()
     }
   }, [])
   return (
