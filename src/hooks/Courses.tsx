@@ -25,7 +25,7 @@ export const useFetchCourses = () => {
 
 export const useGetContent = () => {
     const dispatch = useDispatch()
-    return async (id: string | undefined) => await fetch(`http://localhost:5000/api/course/${id}/content`, {
+    return async (id: string | undefined) => await fetch(`https://skillstreambackend-b2x9s1e2f-ahmed-salahs-projects-534b2558.vercel.app/api/course/${id}/content`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
