@@ -1,7 +1,9 @@
+
 const initialValues = {
     account: {
         user: null,
-        loggedIn: false
+        loggedIn: false,
+        access_token: null
     },
     courses: {
         coursesList: [],
@@ -25,6 +27,7 @@ export const rootReducer = (state: any = initialValues, action: any) => {
             return {
                 ...state,
                 account: {
+                    ...state.account,
                     loggedIn: true,
                     user: action.user
                 }
@@ -33,6 +36,7 @@ export const rootReducer = (state: any = initialValues, action: any) => {
             return {
                 ...state,
                 account: {
+                    ...state.account,
                     loggedIn: false,
                     user: null
                 }
@@ -68,6 +72,14 @@ export const rootReducer = (state: any = initialValues, action: any) => {
                 ...state,
                 users: {...state.users, usersList: []}
             }
+        case "UPDATE_ACCESS_TOKEN":
+            return {
+                ...state,
+                account: {
+                    ...state.account,
+                    access_token: action.access_token
+                }
+        }
         default:
             return state
     }

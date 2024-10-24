@@ -49,3 +49,11 @@ export const ClearUsersAction = () => {
         type: "CLEAR_USERS"
     }
 }
+
+
+export const updateAccessToken = (access_token: string | undefined) => {
+    return {
+        type: "UPDATE_ACCESS_TOKEN",
+        access_token
+    }
+}

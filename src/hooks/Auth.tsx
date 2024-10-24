@@ -12,10 +12,6 @@ export function useLogin(setState: React.Dispatch<React.SetStateAction<string>>)
     if (success) {
       dispatch(loginAction(user))
       navigate('/', { replace: true })
-      // saving login state to local storage
-      // TODO: make it secure
-      // store refersh token
-      localStorage.setItem("state", JSON.stringify({loggedIn: true, token: getCookie("token")}))
     } else {
       setState(message)
     }
@@ -31,10 +27,6 @@ export function useSignUp(setState: React.Dispatch<React.SetStateAction<string>>
     if (success) {
       dispatch(loginAction(user))
       navigate('/', { replace: true })
-      // saving login state to local storage
-      // TODO: make it secure
-      // store refersh token
-      localStorage.setItem("state", JSON.stringify({loggedIn: true, token: getCookie("token")}))
     } else {
       setState(message)
     }
@@ -87,7 +79,7 @@ async function userFetch(route: string,
     confirmPassword?: string,
     name?: string
   } = {}) : Promise<{message: string, success: boolean, user?: {name: string, email: string}}> {
-  return await fetch(`https://skillstreambackend-b2x9s1e2f-ahmed-salahs-projects-534b2558.vercel.app/user/${route}`, {
+  return await fetch(`https://backend-eta-ten-70.vercel.app/user/${route}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -96,16 +88,4 @@ async function userFetch(route: string,
     credentials: 'include'
   }).then((res) => res.json())
   .catch((err) => err)
-}
-
-
-function getCookie(name: string) {
-  const cookies = document.cookie.split('; ');
-
-  for (let cookie of cookies) {
-    const [cookieName, cookieValue] = cookie.split('=');
-    if (cookieName === name) {
-      return decodeURIComponent(cookieValue); // Return the decoded value of the cookie
-    }
-  }
 }

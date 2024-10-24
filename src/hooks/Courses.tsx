@@ -5,7 +5,7 @@ import { fetchCourseAction, fetchCoursesAction } from "../redux-store/actions"
 export const useFetchCourses = () => {
     const dispatch = useDispatch()
     return async ({ id, page, category }: { id?: string, page?: number, category?: string }) => await fetch(
-        `https://skillstreambackend-b2x9s1e2f-ahmed-salahs-projects-534b2558.vercel.app/api/course/${id ? id : `?pageNumber=${page ? page : 1}&category=${category ? category : ""}`}`
+        `https://backend-eta-ten-70.vercel.app/api/course/${id ? id : `?pageNumber=${page}&category=${category ? category : ""}`}`
         , {
             method: "GET",
             headers: {
@@ -24,8 +24,7 @@ export const useFetchCourses = () => {
 
 
 export const useGetContent = () => {
-    const dispatch = useDispatch()
-    return async (id: string | undefined) => await fetch(`https://skillstreambackend-b2x9s1e2f-ahmed-salahs-projects-534b2558.vercel.app/api/course/${id}/content`, {
+    return async (id: string | undefined) => await fetch(`https://backend-eta-ten-70.vercel.app/api/course/${id}/content`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

@@ -9,9 +9,8 @@ const Home = () => {
   const enrolledCourses = useSelector((state: any) => state.account?.user?.courses)
   let [sortedCourses, setSortedCourses] = useState([]);
 
-  // TODO fetch all courses to get the most popular courses properly
   useEffect (() => {
-    setSortedCourses(courses?.coursesList?.sort((a: any, b: any) => b?.likes - a?.likes))
+    setSortedCourses(courses?.coursesList)
   }, [courses?.coursesList])
 
   return (
@@ -28,7 +27,7 @@ const Home = () => {
       <Heading ml={20} pt={24} color="teal" size="lg">Popular Courses</Heading>
       <Divider color="gray" w={"20%"} ml={16} mt={4} />
       <Grid gridTemplateColumns={"1fr 1fr"} gridTemplateRows={"1fr 1fr"} p={10} gap={16} color='teal'>
-        {sortedCourses.slice(0, 4).map((course: any, index: number) => (
+        {sortedCourses?.slice(0, 4).map((course: any, index: number) => (
           <Course key={index}
             {...course}
             progress={enrolledCourses?.find((c: any) => c.course._id === course._id)?.progress}
